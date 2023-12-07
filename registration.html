@@ -1,1 +1,84 @@
 <!-- this will be the registration page -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PSIRT</title>
+  </head>
+  <body>
+    <section id="register">
+      <div>
+        <div>
+          <div>
+            <h1>Welcome to the Pet Sitter Response Tracking System!</h1>
+            <form>
+              <div>
+                <label> Select your role below: </label>
+                <select>
+                  <option disabled value="">I am a...</option>
+                  <option value="client">Client</option>
+                  <option value="sitter">Sitter</option>
+                  <option value="handler">Handler</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="firstName"> Enter your first name: </label>
+                <input type="text" name="firstName" placeholder="Jane" />
+              </div>
+              <div>
+                <label htmlFor="lastName"> Enter your last name: </label>
+                <input type="text" name="lastName" placeholder="Doe" />
+              </div>
+              <div>
+                <label htmlFor="userName"> Enter your user name: </label>
+                <input
+                  type="text"
+                  name="userName"
+                  placeholder="Your username!"
+                />
+              </div>
+              <div>
+                <label htmlFor="email">
+                  Enter your email (This will be what you use to login!):
+                </label>
+                <input
+                  type="text"
+                  name="email"
+                  placeholder="example@example.com"
+                />
+              </div>
+              <div>
+                <label htmlFor="phoneNumber"> Enter your phone number: </label>
+                <input type="text" name="phoneNumber" placeholder="123456789" />
+              </div>
+              <div>
+                <label htmlFor="address"> Enter your address: </label>
+                <input
+                  type="text"
+                  name="address"
+                  placeholder="123 Silly Street"
+                />
+              </div>
+              <div>
+                <label htmlFor="password"> Enter your password: </label>
+                <input
+                  type="password"
+                  name="password"
+                  placeholder="Don't share your password!"
+                />
+              </div>
+              <div className="text-center">
+                <button
+                  className="btn btn-accent"
+                  type="submit"
+                  onClick="{handleSubmit}"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
