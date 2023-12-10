@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>PSIRT Client Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #0066cc;
+            margin-bottom: 20px;
+        }
+
+        section {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea,
+        button {
+            margin-bottom: 12px;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        select {
+            padding: 8px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Style links as buttons */
+        a.button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        a.button:hover {
+            background-color: #45a049;
+        }
+
+        #clientID {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to Your PSIRT Client Dashboard</h1>
+    <section id="createRequest">
+        <h2>Create Request Page</h2>
+        <form method="post" action="process_request.php">
+            <label for="orderType">Order Type:</label>
+            <select name="orderType" id="orderType">
+            </select>
+
+            <label for="orderDate">Order Date:</label>
+            <input type="date" name="orderDate" required>
+
+            <button type="submit">Create Request</button>
+        </form>
+    </section>
+
+    <section id="viewRequest">
+        <h2><a href="view_request.php" class="button">View Request Page</a></h2>
+    </section>
+
+    <section id="approveDenySitter">
+        <h2><a href="approve_deny_sitter.php" class="button">Approve or Deny Sitter Recommendation</a></h2>
+    </section>
+
+    <section id="addComments">
+        <h2><a href="add_comments.php" class="button">Add Comments</a></h2>
+    </section>
+
+    <section id="updateStatus">
+        <h2><a href="update_status.php" class="button">Update Status</a></h2>
+    </section>
+
+    <section id="viewHistory">
+        <h2><a href="view_request_history.php" class="button">View Request History</a></h2>
+    </section>
+
+    <script>
+        window.onload = function () {
+            var orderTypeDropdown = document.getElementById('orderType');
+            fetch('get_order_types.php')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(type => {
+                        var option = document.createElement('option');
+                        option.value = type;
+                        option.text = type;
+                        orderTypeDropdown.add(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching order types:', error));
+        };
+    </script>
+</body>
+
+</html>
