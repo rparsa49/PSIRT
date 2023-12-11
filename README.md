@@ -1,6 +1,6 @@
 # PSIRT - Pet Sitter Response Tracking System
 
-PSIRT is a comprehensive Pet Sitter Response Tracking System developed as the final project for CSC 263 (Database Management Systems) at Adelphi University.
+PSIRT is a comprehensive Pet Sitter Response Tracking System developed by our team as the final project for CSC 263 (Database Management Systems) at Adelphi University.
 
 ## Overview
 
@@ -24,7 +24,7 @@ Pet Sitter Response Tracking System (PSIRT) is a web-based application designed 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/psirt.git
+   git clone https://github.com/rparsa49/psirt.git
    ```
 
 2. Set up the database:
