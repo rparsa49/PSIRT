@@ -1,17 +1,69 @@
-<!-- this will be the login page -->
 <!DOCTYPE HTML>
+<html>
+
 <head>
-    <title> Login System for Clients, Sitters, and Handlers</title>
+    <title>Login System for Clients, Sitters, and Handlers</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #0066cc;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            margin-bottom: 12px;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
-<h1> Login Here </h1>
-<body> 
+
+<body>
+    <h1>Login to the Pet Sitter Response Tracker!</h1>
     <form method="POST" action="login.php">
-        <label for="Email Address">Email Address: </label>
-        <input type="text" id="Email" name="Email" required><br><br>
-        <label for="Password">Password: </label>
-        <input type="text" id="password" name="password" required><br><br>
+        <label for="Email">Email Address:</label>
+        <input type="text" id="Email" name="emailAddress" required><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
         <input type="submit" value="Log In">
     </form>
-
-
 </body>
+
+</html>

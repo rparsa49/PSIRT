@@ -1,84 +1,79 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>PHP Connect MySQL Database</title>
-    </head>
-    <body>
-        <h1>PHP Connect MySQL Database</h1>
-        <p><?php
-                $servername = "localhost";
-                $username = "root";
-                $password = "";
-                $database = "psirt";
-                $port = "3306";
 
-                $conn = new mysqli($servername, $username, $password, $database, $port);
+<head>
+    <title>PSIRT User Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            margin: 50px;
+        }
 
-                if ($conn->connect_error) {
-                    die("<p style='color:red'>" . "Connection Failed: " . $conn->connect_error . "</p>");
-                }
+        h1 {
+            color: #0066cc;
+        }
 
-                
-            
+        p.success {
+            color: #4caf50;
+        }
 
-                echo "MySQL DB Connected successfully... <br>";
+        p.error {
+            color: #f44336;
+        }
+    </style>
+</head>
 
+<body>
+    <h1>PSIRT User Registration</h1>
+    <?php
+    session_start();
 
-                if(!$result) {
-                    echo "<br> Bummer! " . $conn->error;
-                }
-                else {
-                    echo "<br> The result has " . $result->num_rows . " rows. <br>";
-                }
-                if (isset($_POST['emailAddress']) && isset($_POST['password'])) {
+    $servername = "localhost";
+    $username = "root";
+    $password = "AlfieHershey";
+    $database = "psirt";
+    $port = "3308";
 
-    function validate($data){
+    $conn = new mysqli($servername, $username, $password, $database, $port);
 
-       $data = trim($data);
-
-       $data = stripslashes($data);
-
-       $data = htmlspecialchars($data);
-
-       return $data;
-
+    if ($conn->connect_error) {
+        die("<p style='color:red'>" . "Connection Failed: " . $conn->connect_error . "</p>");
     }
 
-    $emailAddress = validate($_POST['emailAddress']);
+    echo "MySQL DB Connected successfully... <br>";
 
-    $password = validate($_POST['password']);
+    if (isset($_POST['emailAddress']) && isset($_POST['password'])) {
+        function validate($data)
+        {
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            return $data;
+        }
 
-    if (empty($emailAddress)) {
+        $emailAddress = validate($_POST['emailAddress']);
+        $password = validate($_POST['password']);
 
-        header("Location: index.php?error=Email Address is required");
+        if (empty($emailAddress)) {
+            header("Location: login.html?error=Email Address is required");
+            exit();
+        } else if (empty($password)) {
+            header("Location: login.html?error=Password is required");
+            exit();
+        } else {
+            $sql = "SELECT * FROM user WHERE emailAddress='$emailAddress' AND password='$password'";
+            $result = mysqli_query($conn, $sql);
 
-        exit();
-
-    }else if(empty($password)){
-
-        header("Location: index.php?error=Password is required");
-
-        exit();
-
-    }else{
-
-        $sql = "SELECT * FROM user WHERE emailAddress='$emailAddress' AND password='$password'";
-
-        $result = mysqli_query($conn, $sql);
-
-        if (mysqli_num_rows($result) === 1) {
-
-            $row = mysqli_fetch_assoc($result);
-
-            if ($row['emailAddress'] === $emailAddress && $row['password'] === $password) {
-
-                echo "Logged in!";
+            if (mysqli_num_rows($result) === 1) {
+                $row = mysqli_fetch_assoc($result);
+                $role = $row['type'];
 
                 $_SESSION['emailAddress'] = $row['emailAddress'];
-
                 $_SESSION['firstname'] = $row['firstname'];
-
-                $_SESSION['userid'] = $row['userid'];
+                $_SESSION['client_id'] = $row['userID'];
 
                 switch ($role) {
                     case 'client':
@@ -90,39 +85,22 @@
                     case 'handler':
                         header("Location: handler/handlerDash.html");
                         break;
-                        default:
-                        // Redirect to a default page or display an error+
+                    default:
+                        // Redirect to a default page or display an error
                         exit();
-                    }
-
+                }
                 exit();
-
-            }else{
-
-                header("Location: index.php?error=Incorect User name or password");
-
+            } else {
+                header("Location: login.html?error=Incorrect User name or password");
                 exit();
-
             }
-
-        }else{
-
-            header("Location: index.php?error=Incorect User name or password");
-
-            exit();
-
         }
-
     }
 
-}else{
+    $conn->close();
+    echo "<br> DB Disconnect";
+    ?>
 
-    
+</body>
 
-}
-                $conn->close();
-
-                echo "<br> DB Disconnect";
-        ?></p>
-    </body>
 </html>
