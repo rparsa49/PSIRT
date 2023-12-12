@@ -33,7 +33,7 @@
 
     $servername = "localhost";
     $username = "root";
-    $password = "mudkip";
+    $password = "AlfieHershey";
     $database = "psirt";
     $port = "3308";
 
@@ -76,7 +76,7 @@
                 $_SESSION['client_id'] = $row['userID'];
 
                 switch ($role) {
-                    case 'user':
+                    case 'client':
                         header("Location: client/clientDash.html");
                         break;
                     case 'sitter':

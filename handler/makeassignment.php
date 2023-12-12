@@ -103,7 +103,7 @@
 
     $servername = "localhost";
     $username = "root";
-    $password = "mudkip";
+    $password = "AlfieHershey";
     $database = "psirt";
     $port = "3308";
 
@@ -112,8 +112,6 @@
     if ($conn->connect_error) {
         die("<p style='color:red'>" . "Connection Failed: " . $conn->connect_error . "</p>");
     }
-
-    //echo "MySQL DB Connected successfully... <br>";
     
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (isset($_POST["sitter_dropdown"])) {
@@ -144,12 +142,9 @@
     }
 
     ?>
-
-
-
+    
     <?php
     $conn->close();
-    //echo "<br> DB Disconnect";
     ?>
 
 </body>

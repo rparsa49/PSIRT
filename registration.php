@@ -36,7 +36,7 @@ session_start(); // Start the session
 
 $servername = "localhost";
 $username = "root";
-$password = "mudkip";
+$password = "AlfieHershey";
 $dbname = "psirt";
 $port = "3308";
 
