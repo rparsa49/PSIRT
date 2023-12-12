@@ -97,11 +97,61 @@
 </head>
 
 <body>
-    <h1>Welcome to Your PSIRT Handler Dashboard</h1>
-    <section id="viewOrders">
-        <h2>View Orders and Make Assignments</h2>
-            <h2><a href="assignment.php" class="button">Assignment Page</a></h2>
-    </section>
+    <h1>Make Assignments</h1>
+    <?php
+    session_start();
+
+    $servername = "localhost";
+    $username = "root";
+    $password = "mudkip";
+    $database = "psirt";
+    $port = "3308";
+
+    $conn = new mysqli($servername, $username, $password, $database, $port);
+
+    if ($conn->connect_error) {
+        die("<p style='color:red'>" . "Connection Failed: " . $conn->connect_error . "</p>");
+    }
+
+    //echo "MySQL DB Connected successfully... <br>";
+    
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        if (isset($_POST["sitter_dropdown"])) {
+            $sitterID = $_POST["sitter_dropdown"];
+            $orderID = $_POST["orderID"];
+            $clientID = $_POST["clientID"];
+            $handlerID = $_SESSION['client_id'];
+
+            $sql_assignment = "INSERT INTO request VALUES(null, '$orderID', '$clientID', '$sitterID', $handlerID, 0);";
+            if($insert = $conn->query($sql_assignment) === TRUE) {
+                $sql_order_update = "UPDATE `order`
+                                        SET sitterID = '$sitterID'
+                                        WHERE orderID = '$orderID';";
+                $update = $conn->query($sql_order_update);
+                echo "Assignment request successfully made";
+                header("Location: handlerDash.html");
+                exit();
+            }
+            else {
+                echo "Error!";
+            }
+
+        } else {
+            echo "Error- Dropdown not set";
+        } 
+    } else {
+        echo "Error: Form not submitted";
+    }
+
+    ?>
+
+
+
+    <?php
+    $conn->close();
+    //echo "<br> DB Disconnect";
+    ?>
+
 </body>
 
 </html>
