@@ -73,7 +73,6 @@
             background-color: #45a049;
         }
 
-        /* Style links as buttons */
         a.button {
             display: inline-block;
             padding: 10px 20px;
@@ -113,25 +112,13 @@
     </section>
 
     <section id="viewRequest">
-        <h2><a href="view_request.php" class="button">View Request Page</a></h2>
-    </section>
-
-    <section id="approveDenySitter">
-        <h2><a href="approve_deny_sitter.php" class="button">Approve or Deny Sitter Recommendation</a></h2>
-    </section>
-
-    <section id="addComments">
-        <h2><a href="add_comments.php" class="button">Add Comments</a></h2>
-    </section>
-
-    <section id="updateStatus">
-        <h2><a href="update_status.php" class="button">Update Status</a></h2>
+        <h2><a href="view_order.php" class="button">View Active Orders</a></h2>
     </section>
 
     <section id="viewHistory">
-        <h2><a href="view_request_history.php" class="button">View Request History</a></h2>
+        <h2><a href="view_request_history.php" class="button">View Order History</a></h2>
     </section>
-
+    
     <script>
         window.onload = function () {
             var orderTypeDropdown = document.getElementById('orderType');
@@ -148,6 +135,8 @@
                 .catch(error => console.error('Error fetching order types:', error));
         };
     </script>
+    <a class="button" href="../logout.php">Logout</a>
+
 </body>
 
 </html>
