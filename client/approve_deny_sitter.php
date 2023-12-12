@@ -90,7 +90,7 @@
     // Fetch pending orders with assigned sitters
     $sql = "SELECT r.*, o.service, o.date FROM request r
             JOIN `order` o ON r.orderID = o.orderID
-            WHERE r.clientID = '$clientID'";
+            WHERE r.clientID = '$clientID' and r.confirm = 0";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
