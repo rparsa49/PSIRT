@@ -34,17 +34,7 @@ ini_set('display_errors', 1);
 
 session_start(); // Start the session
 
-$servername = "localhost";
-$username = "root";
-$password = "AlfieHershey";
-$dbname = "psirt";
-$port = "3308";
-
-$conn = new mysqli($servername, $username, $password, $dbname, $port);
-
-if ($conn->connect_error) {
-    die("<p class='error'>" . "Connection Failed: " . $conn->connect_error . "</p>");
-}
+include 'config.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $role = $_POST['role'];
