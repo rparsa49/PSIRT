@@ -204,7 +204,7 @@
                     echo '<button type="button" onclick="addComment(' . $orderID . ')">Add Comment</button>';
                 }
                 if ($orderRow['state'] === 'pending completion') {
-                    echo '<button type="button" onclick="markOrderCompleted()">Submit for Approval</button>';
+                    echo '<button type="button" onclick="markOrderCompleted()">Confirm Completion</button>';
                 }
                 ?>
             </div>
