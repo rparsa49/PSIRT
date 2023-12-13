@@ -201,7 +201,7 @@
                 <textarea id="commentInput" placeholder="Add a comment..." rows="4"></textarea>
                 <button type="button" onclick="addComment(<?php echo $orderID; ?>)">Add Comment</button>
                 <?php
-                if ($orderRow['state'] === 'assigned') {
+                if ($orderRow['state'] === 'pending completion') {
                     echo '<button type="button" onclick="markOrderCompleted()">Mark as Completed</button>';
                 }
                 ?>

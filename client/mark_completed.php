@@ -14,7 +14,7 @@ if (isset($_POST['orderID'])) {
     }
 
     // Check if the order is in 'pending confirmation' state
-    $checkStateSql = "SELECT state FROM `order` WHERE orderID = '$orderID' AND state = 'assigned'";
+    $checkStateSql = "SELECT state FROM `order` WHERE orderID = '$orderID' AND state = 'pending completion'";
     $checkStateResult = $conn->query($checkStateSql);
 
     if ($checkStateResult->num_rows == 1) {
