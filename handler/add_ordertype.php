@@ -97,40 +97,31 @@
 </head>
 
 <body>
-    <h1>Make Assignments</h1>
+    <h1>Remove Order Type</h1>
     <?php
     session_start();
 
     include __DIR__ . '/../config.php';
-    
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        if (isset($_POST["sitter_dropdown"])) {
-            $sitterID = $_POST["sitter_dropdown"];
-            $orderID = $_POST["orderID"];
-            $clientID = $_POST["clientID"];
-            $handlerID = $_SESSION['client_id'];
 
-            $sql_assignment = "INSERT INTO request VALUES(null, '$orderID', '$clientID', '$sitterID', $handlerID, 0);";
-            if($insert = $conn->query($sql_assignment) === TRUE) {
-                $sql_order_update = "UPDATE `order`
-                                        SET sitterID = '$sitterID'
-                                        WHERE orderID = '$orderID';";
-                $update = $conn->query($sql_order_update);
-                echo "Assignment request successfully made";
-                header("Location: assignment.php");
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        if (isset($_POST["newOrderType"])) {
+            $newOrderType = $_POST["newOrderType"];
+
+            $sql_addOrderType = "INSERT INTO order_type VALUES(null, '$newOrderType');";
+            if($add = $conn->query($sql_addOrderType) === TRUE) {
+                echo "Order Type Successfully Added";
+                header("Location: ordertypes.php");
                 exit();
-            }
-            else {
-                echo "Error!";
+            } else {
+                echo "Error- Query Error";
             }
 
         } else {
-            echo "Error- Dropdown not set";
+            echo "Error- New order type not Passed";
         } 
     } else {
-        echo "Error: Form not submitted";
+        echo "Error- Form not submitted";
     }
-
     ?>
     
     <?php

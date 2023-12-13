@@ -16,11 +16,8 @@
             margin-bottom: 20px;
         }
 
-        section {
-            background-color: #fff;
-            border: 1px solid #ddd;
+        section {   
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             margin-bottom: 20px;
         }
@@ -31,14 +28,24 @@
 
         form {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto
         }
 
         label {
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
+        }
+
+        .center-table {
+            margin: auto;
+            width: 50%;
         }
 
         input,
@@ -97,44 +104,55 @@
 </head>
 
 <body>
-    <h1>Make Assignments</h1>
+    <h1>Manage Order Types</h1>
     <?php
     session_start();
-
+    
     include __DIR__ . '/../config.php';
     
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        if (isset($_POST["sitter_dropdown"])) {
-            $sitterID = $_POST["sitter_dropdown"];
-            $orderID = $_POST["orderID"];
-            $clientID = $_POST["clientID"];
-            $handlerID = $_SESSION['client_id'];
-
-            $sql_assignment = "INSERT INTO request VALUES(null, '$orderID', '$clientID', '$sitterID', $handlerID, 0);";
-            if($insert = $conn->query($sql_assignment) === TRUE) {
-                $sql_order_update = "UPDATE `order`
-                                        SET sitterID = '$sitterID'
-                                        WHERE orderID = '$orderID';";
-                $update = $conn->query($sql_order_update);
-                echo "Assignment request successfully made";
-                header("Location: assignment.php");
-                exit();
-            }
-            else {
-                echo "Error!";
-            }
-
-        } else {
-            echo "Error- Dropdown not set";
-        } 
-    } else {
-        echo "Error: Form not submitted";
-    }
-
     ?>
-    
+
+    <form method="POST" action="add_ordertype.php" class="form-container">
+        <label for="newOrderType"></label>
+        <input type="newOrderType" id="newOrderType" name="newOrderType" placeholder="New order type" required>
+        <input type="submit" value="Add">
+    </form>
+
+
+    <table class="center-table">
+        <tr>
+            <th>ID #</th>
+            <th>Order Type</th>
+            <th>Remove</th>
+        </tr>
+
+        <?php
+        $sql_ordertype = "SELECT orderTypeID, type_name
+                        FROM order_type;";
+        $ordertype_result = $conn->query($sql_ordertype);
+
+        while ($row = $ordertype_result->fetch_assoc()) {
+            echo "<tr>";
+            echo "<td>" . $row["orderTypeID"] . "</td>";
+            echo "<td>" . $row["type_name"] . "</td>";
+            echo "<td>";
+            echo "<form action='remove_ordertype.php' method='post'>";
+            echo "<input type='hidden' name='orderTypeID' value = '" . $row["orderTypeID"] . "'>";
+            echo "<input type='submit' value='Remove Order Type'>";
+            echo "</form>";
+            echo "</td>";
+            echo "</tr>";
+        }
+        ?>
+    </table>
+
+    <section id="return">
+        <h2><a href="handlerDash.html" class="button">Return to Dashboard</a></h2>
+    </section>
+
     <?php
     $conn->close();
+    //echo "<br> DB Disconnect";
     ?>
 
 </body>

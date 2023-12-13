@@ -70,17 +70,7 @@
 
     $clientID = $_SESSION['client_id'];
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "AlfieHershey";
-    $dbname = "psirt";
-    $port = "3308";
-
-    $conn = new mysqli($servername, $username, $password, $dbname, $port);
-
-    if ($conn->connect_error) {
-        die("<p style='color:red'>" . "Connection Failed: " . $conn->connect_error . "</p>");
-    }
+    include __DIR__ . '/../config.php';
 
     // Fetch orders for the current client
     $orderSql = "SELECT * FROM `order` WHERE clientID = '$clientID' and state != 'completed'";

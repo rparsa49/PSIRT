@@ -45,20 +45,7 @@
                 $orderType = htmlspecialchars($orderType);
                 $orderDate = htmlspecialchars($orderDate);
 
-                // Database connection details
-                $servername = "localhost";
-                $username = "root";
-                $password = "AlfieHershey";
-                $dbname = "psirt";
-                $port = "3308";
-
-                // Create connection
-                $conn = new mysqli($servername, $username, $password, $dbname, $port);
-
-                // Check connection
-                if ($conn->connect_error) {
-                    die("Connection failed: " . $conn->connect_error);
-                }
+                include __DIR__ . '/../config.php';
 
                 // Prepare and execute SQL query to insert the order
                 $state = 'pending'; // Initial state for a new order

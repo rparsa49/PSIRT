@@ -17,10 +17,7 @@
         }
 
         section {
-            background-color: #fff;
-            border: 1px solid #ddd;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
             margin-bottom: 20px;
         }
@@ -106,19 +103,8 @@
     <?php
     session_start();
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "AlfieHershey";
-    $database = "psirt";
-    $port = "3308";
+    include __DIR__ . '/../config.php';
 
-    $conn = new mysqli($servername, $username, $password, $database, $port);
-
-    if ($conn->connect_error) {
-        die("<p style='color:red'>" . "Connection Failed: " . $conn->connect_error . "</p>");
-    }
-
-    //echo "MySQL DB Connected successfully... <br>";
     ?>
 
     <table class="center-table">
@@ -172,6 +158,10 @@
         }
         ?>
     </table>
+    
+    <section id="return">
+        <h2><a href="handlerDash.html" class="button">Return to Dashboard</a></h2>
+    </section>
 
     <?php
     $conn->close();

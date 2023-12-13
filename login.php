@@ -31,19 +31,7 @@
     <?php
     session_start();
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "AlfieHershey";
-    $database = "psirt";
-    $port = "3308";
-
-    $conn = new mysqli($servername, $username, $password, $database, $port);
-
-    if ($conn->connect_error) {
-        die("<p style='color:red'>" . "Connection Failed: " . $conn->connect_error . "</p>");
-    }
-
-    echo "MySQL DB Connected successfully... <br>";
+    include 'config.php';
 
     if (isset($_POST['emailAddress']) && isset($_POST['password'])) {
         function validate($data)
