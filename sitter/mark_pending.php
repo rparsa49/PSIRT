@@ -1,24 +1,14 @@
 <?php
 session_start();
 
-$servername = "localhost";
-$username = "root";
-$password = "AlfieHershey";
-$dbname = "psirt";
-$port = "3308";
-
-$conn = new mysqli($servername, $username, $password, $dbname, $port);
-
-if ($conn->connect_error) {
-    die(json_encode(['error' => 'Connection Failed: ' . $conn->connect_error]));
-}
+include __DIR__ . '/../config.php';
 
 // Check if the orderID parameter is set
 if (isset($_POST['orderID'])) {
     $orderID = $_POST['orderID'];
 
     // Check if the clientID is set in the session
-    if (!isset($_SESSION['sitter_id'])) {
+    if (!isset($_SESSION['client_id'])) {
         echo json_encode(['error' => 'User not logged in.']);
         exit();
     }
@@ -29,7 +19,7 @@ if (isset($_POST['orderID'])) {
 
     if ($checkStateResult->num_rows == 1) {
         // Update the order state to 'pending'
-        $updateStateSql = "UPDATE `order` SET state = 'pending completion', archived = 1 WHERE orderID = '$orderID'";
+        $updateStateSql = "UPDATE `order` SET state = 'pending completion' WHERE orderID = '$orderID'";
 
         if ($conn->query($updateStateSql) === TRUE) {
             echo json_encode(['success' => 'Order marked as pending successfully.']);

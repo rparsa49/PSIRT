@@ -198,11 +198,13 @@
                 <h2>Comments</h2>
                 <div id="commentsContainer">
                 </div>
-                <textarea id="commentInput" placeholder="Add a comment..." rows="4"></textarea>
-                <button type="button" onclick="addComment(<?php echo $orderID; ?>)">Add Comment</button>
                 <?php
+                if ($orderRow['state'] != 'completed') {
+                    echo '<textarea id="commentInput" placeholder="Add a comment..." rows="4"></textarea>';
+                    echo '<button type="button" onclick="addComment(' . $orderID . ')">Add Comment</button>';
+                }
                 if ($orderRow['state'] === 'pending completion') {
-                    echo '<button type="button" onclick="markOrderCompleted()">Mark as Completed</button>';
+                    echo '<button type="button" onclick="markOrderCompleted()">Submit for Approval</button>';
                 }
                 ?>
             </div>
