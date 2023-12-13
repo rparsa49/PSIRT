@@ -155,7 +155,7 @@
 
     $servername = "localhost";
     $username = "root";
-    $password = "";
+    $password = "AlfieHershey";
     $dbname = "psirt";
     $port = "3308";
 
