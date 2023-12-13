@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "mudkip";
+$password = "AlfieHershey";
 $database = "psirt";
 $port = "3308";
 
