@@ -121,7 +121,6 @@
 
     <table class="center-table">
         <tr>
-            <th>ID #</th>
             <th>Order Type</th>
             <th>Remove</th>
         </tr>
@@ -133,7 +132,6 @@
 
         while ($row = $ordertype_result->fetch_assoc()) {
             echo "<tr>";
-            echo "<td>" . $row["orderTypeID"] . "</td>";
             echo "<td>" . $row["type_name"] . "</td>";
             echo "<td>";
             echo "<form action='remove_ordertype.php' method='post'>";
@@ -152,7 +150,6 @@
 
     <?php
     $conn->close();
-    //echo "<br> DB Disconnect";
     ?>
 
 </body>

@@ -52,36 +52,74 @@
             header("Location: login.html?error=Password is required");
             exit();
         } else {
-            $sql = "SELECT * FROM user WHERE emailAddress='$emailAddress' AND password='$password'";
-            $result = mysqli_query($conn, $sql);
+            // Retrieve password from the database
+            $getPasswordStmt = $conn->prepare("SELECT password FROM user WHERE emailAddress = ?");
+            $getPasswordStmt->bind_param("s", $emailAddress);
+            $getPasswordStmt->execute();
+            $passwordResult = $getPasswordStmt->get_result();
 
-            if (mysqli_num_rows($result) === 1) {
-                $row = mysqli_fetch_assoc($result);
-                $role = $row['type'];
+            if ($passwordRow = $passwordResult->fetch_assoc()) {
+                $storedPassword = $passwordRow['password'];
 
-                $_SESSION['emailAddress'] = $row['emailAddress'];
-                $_SESSION['firstname'] = $row['firstname'];
-                $_SESSION['client_id'] = $row['userID'];
+                // Check if the stored password is hashed
+                if (password_needs_rehash($storedPassword, PASSWORD_DEFAULT)) {
+                    // If the password needs to be rehashed, rehash it and update the database
+                    $newHashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                    $updatePasswordStmt = $conn->prepare("UPDATE user SET password = ? WHERE emailAddress = ?");
+                    $updatePasswordStmt->bind_param("ss", $newHashedPassword, $emailAddress);
+                    $updatePasswordStmt->execute();
+                    $updatePasswordStmt->close();
 
-                switch ($role) {
-                    case 'client':
-                        header("Location: client/clientDash.html");
-                        break;
-                    case 'sitter':
-                        header("Location: sitter/sitterDash.html");
-                        break;
-                    case 'handler':
-                        header("Location: handler/handlerDash.html");
-                        break;
-                    default:
-                        // Redirect to a default page or display an error
-                        exit();
+                    // Continue with login using the new hashed password
+                    $storedPassword = $newHashedPassword;
                 }
-                exit();
+
+                // Verify the entered password against the stored password
+                if (password_verify($password, $storedPassword)) {
+                    // Password is correct, proceed with login
+                    $getUserDataStmt = $conn->prepare("SELECT * FROM user WHERE emailAddress = ?");
+                    $getUserDataStmt->bind_param("s", $emailAddress);
+                    $getUserDataStmt->execute();
+                    $userDataResult = $getUserDataStmt->get_result();
+
+                    if ($userDataRow = $userDataResult->fetch_assoc()) {
+                        $role = $userDataRow['type'];
+
+                        $_SESSION['emailAddress'] = $userDataRow['emailAddress'];
+                        $_SESSION['firstname'] = $userDataRow['firstname'];
+                        $_SESSION['client_id'] = $userDataRow['userID'];
+
+                        switch ($role) {
+                            case 'client':
+                                header("Location: client/clientDash.html");
+                                break;
+                            case 'sitter':
+                                header("Location: sitter/sitterDash.html");
+                                break;
+                            case 'handler':
+                                header("Location: handler/handlerDash.html");
+                                break;
+                            default:
+                                // Redirect to a default page or display an error
+                                exit();
+                        }
+                    } else {
+                        header("Location: login.html?error=Error retrieving user data");
+                        exit();
+                    }
+                } else {
+                    // Incorrect password
+                    header("Location: login.html?error=Incorrect User name or password");
+                    exit();
+                }
             } else {
+                // Email not found
                 header("Location: login.html?error=Incorrect User name or password");
                 exit();
             }
+
+            $getPasswordStmt->close();
+            $getUserDataStmt->close();
         }
     }
 
