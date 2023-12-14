@@ -43,9 +43,8 @@ Pet Sitter Response Tracking System (PSIRT) is a web-based application designed 
 
 - [Roya Parsa](https://github.com/rparsa49)
 - [Aaron Nguyen](https://github.com/ilikemahmilk)
-- [Michael Scandiffio ](https://github.com/MichaelScan27)
+- [Michael Scandiffio](https://github.com/MichaelScan27)
 
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-```
